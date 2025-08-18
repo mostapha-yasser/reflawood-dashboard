@@ -1,26 +1,39 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+
+
+@theme {
+  /* Light mode - Base colors */
+  --color-main: #432219;
+  --color-Secondary: #6b3b28;
+  --color-Accent: #a75e4b;
+  --color-Background: #fef8f5;
+  --color-Text: #2d1a15;
+
+  /* Aside elements */
+  --color-Aside: #f3e4dd;
+  --color-Aside-Border: #c27a63;
+
+  /* Chart colors */
+  --color-Chart-Primary: #432219;
+  --color-Chart-Secondary: #6b3b28;
+  --color-Chart-Accent1: #a75e4b;
+  --color-Chart-Accent2: #b56d5a;
+  --color-Chart-Accent3: #e4b8a1;
+  --color-Chart-Background: #fff7f2;
+
+  /* Product CRUD interface colors */
+  --color-Success: #7a5c3c;
+  --color-Warning: #e0a86b;
+  --color-Danger: #b74b3c;
+  --color-Info: #9b6b5a;
+  --color-Disabled: #e9dad4;
+
+  /* Form element colors */
+  --color-Input-Background: #ffffff;
+  --color-Input-Border: #ddb7a9;
+  --color-Input-Focus: #6b3b28;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
