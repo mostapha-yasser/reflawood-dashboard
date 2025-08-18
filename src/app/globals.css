@@ -4,11 +4,11 @@
 
 @theme {
   /* Light mode - Base colors */
-  --color-main: #432219;
-  --color-Secondary: #6b3b28;
-  --color-Accent: #a75e4b;
-  --color-Background: #fef8f5;
-  --color-Text: #2d1a15;
+  --color-main: #b87c40;
+  --color-Secondary: #b77b3f;
+  --color-Accent: #ba7e42;
+  --color-Background: #ba7f43;
+  --color-Text: #49311a; 
 
   /* Aside elements */
   --color-Aside: #f3e4dd;
