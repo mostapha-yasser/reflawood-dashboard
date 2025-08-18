@@ -4,7 +4,7 @@ import QueryProvider from "@/components/tanstackQuery/QueryProvider";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Admin Dashboard",
+  title: "reflawood Dashboard ",
   description: "Private admin dashboard",
   robots: "noindex, nofollow",
 };
