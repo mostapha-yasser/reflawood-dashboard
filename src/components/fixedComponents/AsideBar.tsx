@@ -24,7 +24,7 @@ function AsideBar({
            transition-all duration-400 ease-out
            w-full min-h-screen grid grid-cols-1 
            border-e-4 border-Aside-Border 
-          text-Text text-center bg-Aside 
+          text-Text text-center bg-Background/50 
           shadow-Aside `}
     >
       <div className="w-full ">

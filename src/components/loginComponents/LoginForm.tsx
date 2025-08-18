@@ -32,7 +32,7 @@ function LoginForm() {
           placeholder="Enter your email"
           autoComplete="email"
           aria-describedby="email-error"
-          className={` w-full bg-Background px-6 py-3 rounded-sm`}
+          className={` w-full bg-Background border-1 border-main  px-6 py-3 rounded-sm`}
         />
 
         <p className="text-center min-h-6 text-red-500 ">
@@ -51,7 +51,7 @@ function LoginForm() {
           placeholder="Enter your password"
           autoComplete="current-password"
           aria-describedby="password-error"
-          className={` w-full bg-Background px-6 py-3 rounded-sm`}
+          className={` w-full bg-Background border-1 border-main px-6 py-3 rounded-sm`}
         />
 
         <p className="text-center min-h-6 text-red-500">

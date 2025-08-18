@@ -1,39 +1,19 @@
 @import "tailwindcss";
 
-
-
 @theme {
-  /* Light mode - Base colors */
-  --color-main: #b87c40;
-  --color-Secondary: #b77b3f;
-  --color-Accent: #ba7e42;
-  --color-Background: #ba7f43;
-  --color-Text: #49311a; 
+  /* Base Palette */
+  --color-main: #73431c;          /* Rich brown - primary */
+  --color-Secondary: #;     /* Warm sand - secondary */
+  --color-Background: #f8f2eb;    /* Soft beige - background */
+  --color-Text: #3a2412;          /* Darker text for readability */
 
-  /* Aside elements */
-  --color-Aside: #f3e4dd;
-  --color-Aside-Border: #c27a63;
+  /* UI Elements */
+  --color-Aside: var(--color-Secondary);
+  --color-Aside-Border: var(--color-main);
 
-  /* Chart colors */
-  --color-Chart-Primary: #432219;
-  --color-Chart-Secondary: #6b3b28;
-  --color-Chart-Accent1: #a75e4b;
-  --color-Chart-Accent2: #b56d5a;
-  --color-Chart-Accent3: #e4b8a1;
-  --color-Chart-Background: #fff7f2;
+  /* Form Elements */
+  --color-Input-Border: var(--color-main);
+  --color-Input-Background: #fdfaf7;
+  --color-Input-Text: var(--color-Text);
 
-  /* Product CRUD interface colors */
-  --color-Success: #7a5c3c;
-  --color-Warning: #e0a86b;
-  --color-Danger: #b74b3c;
-  --color-Info: #9b6b5a;
-  --color-Disabled: #e9dad4;
-
-  /* Form element colors */
-  --color-Input-Background: #ffffff;
-  --color-Input-Border: #ddb7a9;
-  --color-Input-Focus: #6b3b28;
 }
-
-
-

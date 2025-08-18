@@ -75,7 +75,7 @@ function handleChange(
         className="
       text-center text-2xl
       md:text-3xl
-      font-bold text-main my-1 "
+      font-bold text-Text my-1 "
       >
         {headerContent} Product
       </p>
