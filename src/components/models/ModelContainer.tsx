@@ -7,8 +7,9 @@ function ModelContainer({
   children: ReactNode;
   isModelOpen: boolean;
 }) {
+    if (!isModelOpen) return null;
   return (
-    <div className={`${!isModelOpen && "hidden"}`}>
+    <div >
       <div className=" fixed inset-0 flex justify-center z-50 items-center bg-black/50">
         {children}
       </div>
