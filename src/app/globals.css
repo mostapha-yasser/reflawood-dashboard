@@ -3,12 +3,10 @@
 @theme {
   /* Base Palette */
   --color-main: #73431c;          /* Rich brown - primary */
-  --color-Secondary: #;     /* Warm sand - secondary */
-  --color-Background: #f8f2eb;    /* Soft beige - background */
+  --color-Background: #f8f2ec;    /* Soft beige - background */
   --color-Text: #3a2412;          /* Darker text for readability */
 
   /* UI Elements */
-  --color-Aside: var(--color-Secondary);
   --color-Aside-Border: var(--color-main);
 
   /* Form Elements */

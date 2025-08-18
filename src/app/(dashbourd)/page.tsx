@@ -4,24 +4,20 @@ export default function Reflawood() {
   return (
     <div
       className="max-h-screen h-screen flex flex-col w-full overflow-hidden"
-      style={{ backgroundColor: "var(--color-Background)" }}
     >
       {/* Header */}
       <header
         className="py-6 px-8"
-        style={{ backgroundColor: "var(--color-Secondary)" }}
       >
         <div className="flex justify-between items-center">
           <div>
             <h1
-              className="text-3xl font-bold mb-1"
-              style={{ color: "var(--color-Text)" }}
+              className="text-xl md:text-3xl font-bold mb-1"
             >
               Reflawood Dashboard
             </h1>
             <p
               className="text-sm opacity-90"
-              style={{ color: "var(--color-Text)" }}
             >
               Professional Wood Furniture Management System
             </p>
@@ -29,13 +25,11 @@ export default function Reflawood() {
           <div className="text-right">
             <p
               className="text-sm opacity-75"
-              style={{ color: "var(--color-Text)" }}
             >
               Welcome back!
             </p>
             <p
-              className="text-xs opacity-60"
-              style={{ color: "var(--color-Text)" }}
+              className="text-xs opacity-60 text-nowrap"
             >
               {new Date().toLocaleDateString()}
             </p>
@@ -123,19 +117,16 @@ export default function Reflawood() {
       {/* Footer */}
       <footer
         className="py-4 px-8"
-        style={{ backgroundColor: "var(--color-Secondary)" }}
       >
         <div className="flex justify-between items-center">
           <div>
             <p
               className="text-sm font-medium"
-              style={{ color: "var(--color-Text)" }}
             >
               Reflawood Dashboard
             </p>
             <p
               className="text-xs opacity-75"
-              style={{ color: "var(--color-Text)" }}
             >
               Manage your wood mirror and table business with precision
             </p>
@@ -143,7 +134,6 @@ export default function Reflawood() {
           <div className="text-right">
             <p
               className="text-xs opacity-60"
-              style={{ color: "var(--color-Text)" }}
             >
               Crafted for Professional Woodworkers
             </p>
