@@ -18,9 +18,6 @@ export default function EditModel({
     handleNewProduct,
     undefined
   );
-  if(state?.error){
-    isModifyModelOpen==true
-  }
   return (
     <ModelContainer isModelOpen={isModifyModelOpen}>
       <div className="relative flex justify-center    w-4/5 p-5">
