@@ -12,7 +12,7 @@ export default function EditModel({
 }: {
   isModifyModelOpen: boolean;
   productBeforeEdit: Product | undefined;
-  toggleModifyModel:(Product:undefined)=>void
+  toggleModifyModel: (product: Product | undefined) => void;
 }) {
   const [state, handleNewProductAction] = useActionState(
     handleNewProduct,
