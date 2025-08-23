@@ -12,14 +12,20 @@ function SubmitButton({
 }) {
   const { pending } = useFormStatus();
   const wasSubmittedRef = useRef(false);
+  const prevPendingRef = useRef(pending);
 
   useEffect(() => {
+    // Track when pending state changes from true to false (submission completed)
+    if (prevPendingRef.current && !pending) {
+      wasSubmittedRef.current = true;
+    }
+    prevPendingRef.current = pending;
+
+    // Close modal only after successful submission in modal mode
     if (isModel && wasSubmittedRef.current && !pending) {
       toggleModifyModel(undefined);
-    }
-    
-    if (pending) {
-      wasSubmittedRef.current = true;
+      // Reset for next use
+      wasSubmittedRef.current = false;
     }
   }, [isModel, pending, toggleModifyModel]);
 
@@ -33,7 +39,7 @@ function SubmitButton({
            ${pending ? "opacity-70" : ""}
           `}
       >
-        {pending ? "loading.." : title}
+        {pending ? "Loading..." : title}
       </button>
     </div>
   );
