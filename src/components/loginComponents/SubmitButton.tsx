@@ -1,27 +1,36 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useFormStatus } from "react-dom";
 
-function SubmitButton({title,toggleModifyModel,isModel,}:{title:string  ,toggleModifyModel:(product:undefined)=>void|undefined,isModel:boolean}
-) 
-{
+function SubmitButton({
+  title,
+  toggleModifyModel,
+  isModel,
+}: {
+  title: string;
+  toggleModifyModel: (product: undefined) => void | undefined;
+  isModel: boolean;
+}) {
   const { pending } = useFormStatus();
-  useEffect(()=>{
+  const wasSubmittedRef = useRef(false);
 
-
-    if(isModel && !pending ){
-      toggleModifyModel(undefined)
+  useEffect(() => {
+    if (isModel && wasSubmittedRef.current && !pending) {
+      toggleModifyModel(undefined);
     }
-  },[isModel, pending])
+    
+    if (pending) {
+      wasSubmittedRef.current = true;
+    }
+  }, [isModel, pending, toggleModifyModel]);
 
   return (
-    <div className="flex flex-col  md:mt-3">
+    <div className="flex flex-col md:mt-3">
       <button
         disabled={pending}
         type="submit"
-
-        className={`sm:text-xl cursor-pointer bg-main font-bold px-6 py-3 md:text-3xl 
-          mx-auto w-3/4  shadow-sm rounded-lg text-white 
-          ${ pending?"opacity-70":""}
+        className={`sm:text-xl cursor-pointer bg-main font-bold px-6 py-3 md:text-3xl
+           mx-auto w-3/4 shadow-sm rounded-lg text-white
+           ${pending ? "opacity-70" : ""}
           `}
       >
         {pending ? "loading.." : title}
