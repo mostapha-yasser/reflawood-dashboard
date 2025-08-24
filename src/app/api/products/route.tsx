@@ -22,13 +22,6 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const authResult = await verifyJWT(request);
-  if (!authResult.verified) {
-    return NextResponse.json(
-      { error: "Authentication required", message: authResult.error },
-      { status: 401 }
-    );
-  }
 
   try {
     const productData: ProductInput = await request.json();
