@@ -10,13 +10,12 @@ export default function ProductForm({
   headerContent,
 }: ProductFormInterface) {
   
-  // الحالة الأولية المصححة
   const [formValues, setFormValues] = useState<ProductInput>({
     _id: undefined,
     name: "",
     category: "mirrors",
     imageUrl: "",
-    galleryImages: ["", "", ""], // 3 gallery images
+    galleryImages: ["", "", ""], 
     prices: {
       price: 0,
       discount: 0
@@ -25,7 +24,6 @@ export default function ProductForm({
     description: "",
   });
 
-  // دالة معالجة التغييرات المحسنة
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) {
@@ -45,7 +43,6 @@ export default function ProductForm({
         [name]: value as "table" | "mirrors"
       }));
     } else if (name.startsWith("galleryImage")) {
-      // Handle gallery image changes
       const index = parseInt(name.replace("galleryImage", "")) - 1;
       setFormValues((prev) => ({
         ...prev,
@@ -61,13 +58,10 @@ export default function ProductForm({
     }
   }
 
-  // استخراج القيم
   const { _id, name, category, description, imageUrl, prices, shortDesc, galleryImages } = formValues;
 
-  // useEffect محسن
   useEffect(() => {
     if (!productBeforeEdit) {
-      // إعادة تعيين النموذج عند عدم وجود منتج للتعديل
       setFormValues({
         _id: undefined,
         name: "",
@@ -81,7 +75,6 @@ export default function ProductForm({
       return;
     }
     
-    // تحديث النموذج بالمنتج المحدد
     setFormValues({
       _id: productBeforeEdit._id,
       name: productBeforeEdit.name,
@@ -94,9 +87,7 @@ export default function ProductForm({
     });
   }, [productBeforeEdit]);
 
-  // دالة معالجة الإرسال
   const handleSubmit = async (formData: FormData) => {
-    // إضافة البيانات المتداخلة بشكل مسطح للـ FormData
     formData.set('price', prices.price.toString());
     formData.set('discount', prices.discount.toString());
     
@@ -116,10 +107,10 @@ export default function ProductForm({
       className={`     
         ${headerContent === "Add" ? "w-11/12 md:w-4/5" : "w-full"}
         bg-white border-2 border-gray-300
-        min-h-96 max-h-screen px-2
+        min-h-96 md:max-h-screen px-2 
         text-xs md:text-sm lg:text-base
-        md:px-6 rounded-sm grid grid-cols-1  scale-90
-        mt-10 lg:mt-0`}
+        md:px-6 rounded-sm grid grid-cols-1  md:scale-95 
+        mt-60 md:mt-0`}
     >
       <p className="text-center text-2xl md:text-3xl font-bold text-gray-800 my-.5">
         {headerContent} Product
@@ -136,7 +127,6 @@ export default function ProductForm({
             name="name"
             value={name}
             placeholder="Enter product name"
-            autoComplete="off"
             onChange={handleChange}
             required
             className="w-full placeholder:text-center bg-gray-50 border border-gray-300 px-4 py-2 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
@@ -188,13 +178,11 @@ export default function ProductForm({
         </p>
       </div>
 
-      {/* Gallery Images */}
       <div className="flex flex-col gap-0.5">
         <label className="text-sm font-medium text-gray-700">
           Gallery Images (Optional)
         </label>
         
-        {/* Gallery Image 1 */}
         <div className="flex flex-col gap-1">
           <label htmlFor="galleryImage1" className="text-xs text-gray-600">
             Gallery Image 1
@@ -206,12 +194,10 @@ export default function ProductForm({
             name="galleryImage1"
             value={galleryImages[0]}
             placeholder="Enter gallery image 1 URL (optional)"
-            autoComplete="off"
             className="w-full placeholder:text-center bg-gray-50 border border-gray-300 px-4 py-2 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           />
         </div>
 
-        {/* Gallery Image 2 */}
         <div className="flex flex-col gap-1">
           <label htmlFor="galleryImage2" className="text-xs text-gray-600">
             Gallery Image 2
@@ -223,12 +209,10 @@ export default function ProductForm({
             name="galleryImage2"
             value={galleryImages[1]}
             placeholder="Enter gallery image 2 URL (optional)"
-            autoComplete="off"
             className="w-full placeholder:text-center bg-gray-50 border border-gray-300 px-4 py-2 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           />
         </div>
 
-        {/* Gallery Image 3 */}
         <div className="flex flex-col gap-1">
           <label htmlFor="galleryImage3" className="text-xs text-gray-600">
             Gallery Image 3
@@ -240,7 +224,6 @@ export default function ProductForm({
             name="galleryImage3"
             value={galleryImages[2]}
             placeholder="Enter gallery image 3 URL (optional)"
-            autoComplete="off"
             className="w-full placeholder:text-center bg-gray-50 border border-gray-300 px-4 py-2 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           />
         </div>
@@ -250,7 +233,6 @@ export default function ProductForm({
         </p>
       </div>
 
-      {/* السعر والخصم */}
       <div className="flex justify-between gap-4">
         <div className="w-1/2 flex flex-col gap-0.5">
           <label htmlFor="price" className="text-sm font-medium text-gray-700">
@@ -265,7 +247,6 @@ export default function ProductForm({
             value={prices.price || ""}
             name="price"
             placeholder="Enter product price"
-            autoComplete="off"
             required
             className="w-full placeholder:text-center bg-gray-50 border border-gray-300 px-4 py-2 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           />
@@ -288,7 +269,6 @@ export default function ProductForm({
             value={prices.discount || ""}
             name="discount"
             placeholder="Enter discount percentage"
-            autoComplete="off"
             className="w-full placeholder:text-center bg-gray-50 border border-gray-300 px-4 py-2 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           />
           <p className="text-center min-h-4 text-sm font-bold text-red-500">

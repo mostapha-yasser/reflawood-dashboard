@@ -15,13 +15,11 @@ function SubmitButton({
   const prevPendingRef = useRef(pending);
 
   useEffect(() => {
-    // Track when pending state changes from true to false (submission completed)
     if (prevPendingRef.current && !pending) {
       wasSubmittedRef.current = true;
     }
     prevPendingRef.current = pending;
 
-    // Close modal only after successful submission in modal mode
     if (isModel && wasSubmittedRef.current && !pending) {
       toggleModifyModel(undefined);
       // Reset for next use

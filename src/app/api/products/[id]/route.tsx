@@ -74,7 +74,6 @@ const authResult = await verifyJWT(request);
   }
 }
 
-// DELETE a product
 export async function DELETE(
   request: Request,
   { params }: { params:Promise<{id:string}> }

@@ -1,6 +1,5 @@
 import { AxiosError, AxiosInstance, AxiosResponse } from "axios";
 import handleError from "./errorHandler";
-// import Cookies from "js-cookie";
 
 interface ErrorResponse {
   message?: string;
@@ -11,10 +10,7 @@ export const setupInterceptors =  (
 ): AxiosInstance => {
   axiosInstance.interceptors.request.use(
      (config) => {
-      // const token =  Cookies.get("session");
-      // if (token) {
-      //   config.headers.Authorization = `Bearer ${token}`;
-      // }
+      
       return config;
     },
     (error) => {
