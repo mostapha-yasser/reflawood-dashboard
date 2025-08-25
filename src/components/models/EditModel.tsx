@@ -20,12 +20,13 @@ export default function EditModel({
   );
   return (
     <ModelContainer isModelOpen={isModifyModelOpen}>
-      <div className="relative flex justify-center    w-4/5 p-5">
+      <div className="relative flex justify-center    w-full p-5 scale-y-85 sm:scale-100">
         <div 
         onClick={()=>toggleModifyModel(undefined)}
-        className="absolute top-6 right-6 text-red-500  cursor-pointer">
+        className="absolute  top-24 right-9 z-60 sm:top-6 sm:right-6 text-red-500  cursor-pointer">
           <SquareX size={30} />
         </div>
+
 
         <ProductForm
           toggleModifyModel={toggleModifyModel}
