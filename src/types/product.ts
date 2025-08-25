@@ -1,8 +1,10 @@
 import { ObjectId } from 'mongodb';
+
 export interface Price {
   price: number;
   discount: number;
 }
+
 export interface Product {
   _id: string;
   name: string;
@@ -11,9 +13,11 @@ export interface Product {
   shortDesc: string;
   description: string;
   imageUrl: string;
+  galleryImages: string[];
   createdAt: Date;
   updatedAt: Date;
 }
+
 export interface ProductDB {
   _id: ObjectId;
   name: string;
@@ -22,20 +26,20 @@ export interface ProductDB {
   shortDesc: string;
   description: string;
   imageUrl: string;
+  galleryImages: string[];
   createdAt: Date;
   updatedAt: Date;
 }
 
-
 export interface ProductInput {
-  _id:string | undefined
+  _id: string | undefined;
   name: string;
   prices: Price;
   category: "table" | "mirrors";
   shortDesc: string;
   description: string;
   imageUrl: string;
-
+  galleryImages: string[];
 }
 
 export interface ProductFormInterface {
@@ -47,11 +51,12 @@ export interface ProductFormInterface {
         errors: {
           name?: string[];
           imageUrl?: string[];
-          price?: string[];        // These should match your Zod schema field names
-          discount?: string[];     // These should match your Zod schema field names
+          galleryImages?: string[]; // Added gallery images validation
+          price?: string[];
+          discount?: string[];
           category?: string[];
           description?: string[];
-          shortDesc?: string[];    // Added missing shortDesc
+          shortDesc?: string[];
           _id?: string[];         
         };
         error?: undefined;
@@ -61,7 +66,7 @@ export interface ProductFormInterface {
         errors?: undefined;
       }
     | {
-        success: boolean;        // Added success state
+        success: boolean;
         errors?: undefined;
         error?: undefined;
       }

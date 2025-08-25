@@ -38,6 +38,7 @@ export class ProductModel {
       _id: new ObjectId(),
       name: productData.name,
       description: productData.description,
+      galleryImages:productData.galleryImages,
       prices: productData.prices,
       category: productData.category,
       imageUrl: productData.imageUrl,
@@ -106,6 +107,7 @@ export class ProductModel {
     return {
       _id: dbProduct._id.toString(),
       name: dbProduct.name,
+      galleryImages:dbProduct.galleryImages,
       description: dbProduct.description,
       shortDesc: dbProduct.shortDesc,
       prices: dbProduct.prices,
