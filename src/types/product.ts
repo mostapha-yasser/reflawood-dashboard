@@ -14,6 +14,7 @@ export interface Product {
   description: string;
   imageUrl: string;
   galleryImages: string[];
+  isTopProduct:boolean;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -26,6 +27,7 @@ export interface ProductDB {
   shortDesc: string;
   description: string;
   imageUrl: string;
+    isTopProduct:boolean;
   galleryImages: string[];
   createdAt: Date;
   updatedAt: Date;
@@ -40,18 +42,21 @@ export interface ProductInput {
   description: string;
   imageUrl: string;
   galleryImages: string[];
+    isTopProduct:boolean;
+
 }
 
 export interface ProductFormInterface {
   headerContent: string;
   productBeforeEdit: Product | undefined;
   handleNewProductAction: (payload: FormData) => void;
+  
   state:
     | {
         errors: {
           name?: string[];
           imageUrl?: string[];
-          galleryImages?: string[]; // Added gallery images validation
+          galleryImages?: string[]; 
           price?: string[];
           discount?: string[];
           category?: string[];

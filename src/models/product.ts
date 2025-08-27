@@ -37,6 +37,7 @@ export class ProductModel {
     const dbProduct: ProductDB = {
       _id: new ObjectId(),
       name: productData.name,
+        isTopProduct:false,
       description: productData.description,
       galleryImages:productData.galleryImages,
       prices: productData.prices,
@@ -61,7 +62,6 @@ export class ProductModel {
         updatedAt: new Date(),
       };
 
-      // Add all the missing fields!
       if (productData.name !== undefined) updateDoc.name = productData.name;
       if (productData.description !== undefined)
         updateDoc.description = productData.description;
@@ -107,6 +107,7 @@ export class ProductModel {
     return {
       _id: dbProduct._id.toString(),
       name: dbProduct.name,
+        isTopProduct:dbProduct.isTopProduct,
       galleryImages:dbProduct.galleryImages,
       description: dbProduct.description,
       shortDesc: dbProduct.shortDesc,

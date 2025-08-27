@@ -105,11 +105,11 @@ export default function ProductForm({
     <form
       action={handleSubmit}
       className={`     
-        ${headerContent === "Add" ? "w-11/12 md:w-4/5 scale-y-75 sm:scale-100" : "w-full min-h-fit"}
+        ${headerContent === "Add" ? "w-11/12 md:w-4/5 scale-y-75" : "w-full "}
         bg-white border-2 border-gray-300
         min-h-fit max-h-screen px-2
         text-xs md:text-sm lg:text-base
-        md:px-6 rounded-sm grid grid-cols-1  md:scale-90
+        md:px-6 rounded-sm grid grid-cols-1  scale-90
         mt-10 lg:mt-0`}
     >
       <p className="text-center text-2xl md:text-3xl font-bold text-gray-800 my-.5">
