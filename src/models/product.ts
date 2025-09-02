@@ -37,7 +37,7 @@ export class ProductModel {
     const dbProduct: ProductDB = {
       _id: new ObjectId(),
       name: productData.name,
-        isTopProduct:false,
+      isTopProduct:productData.isTopProduct,
       description: productData.description,
       galleryImages:productData.galleryImages,
       prices: productData.prices,
@@ -73,6 +73,10 @@ export class ProductModel {
         updateDoc.imageUrl = productData.imageUrl;
       if (productData.prices !== undefined)
         updateDoc.prices = productData.prices; 
+    if (productData.isTopProduct !== undefined)
+      updateDoc.isTopProduct = productData.isTopProduct;
+    if (productData.galleryImages !== undefined)
+      updateDoc.galleryImages = productData.galleryImages;
 
       const result = await this.collection.findOneAndUpdate(
         { _id: objectId },

@@ -9,7 +9,7 @@ export interface Product {
   _id: string;
   name: string;
   prices: Price;
-  category: "table" | "mirrors";
+  category: "table" | "mirrors" |"sofas&chairs";
   shortDesc: string;
   description: string;
   imageUrl: string;
@@ -23,7 +23,7 @@ export interface ProductDB {
   _id: ObjectId;
   name: string;
   prices: Price;
-  category: "table" | "mirrors";
+  category: "table" | "mirrors" |"sofas&chairs";
   shortDesc: string;
   description: string;
   imageUrl: string;
@@ -37,7 +37,7 @@ export interface ProductInput {
   _id: string | undefined;
   name: string;
   prices: Price;
-  category: "table" | "mirrors";
+  category: "table" | "mirrors" |"sofas&chairs";
   shortDesc: string;
   description: string;
   imageUrl: string;
@@ -63,6 +63,7 @@ export interface ProductFormInterface {
           description?: string[];
           shortDesc?: string[];
           _id?: string[];         
+              isTopProduct?: string[]; 
         };
         error?: undefined;
       }

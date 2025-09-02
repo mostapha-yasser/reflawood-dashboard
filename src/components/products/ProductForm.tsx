@@ -9,56 +9,73 @@ export default function ProductForm({
   productBeforeEdit,
   headerContent,
 }: ProductFormInterface) {
-  
   const [formValues, setFormValues] = useState<ProductInput>({
     _id: undefined,
     name: "",
     category: "mirrors",
+    isTopProduct: false,
     imageUrl: "",
     galleryImages: ["", "", ""],
     prices: {
       price: 0,
-      discount: 0
+      discount: 0,
     },
     shortDesc: "",
     description: "",
   });
 
-  function handleChange(
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) {
-    const { name, value } = e.target;
-    
-    if (name === "price" || name === "discount") {
-      setFormValues((prev) => ({
-        ...prev,
-        prices: {
-          ...prev.prices,
-          [name]: value === "" ? 0 : Number(value)
-        }
-      }));
-    } else if (name === "category") {
-      setFormValues((prev) => ({
-        ...prev,
-        [name]: value as "table" | "mirrors"
-      }));
-    } else if (name.startsWith("galleryImage")) {
-      const index = parseInt(name.replace("galleryImage", "")) - 1;
-      setFormValues((prev) => ({
-        ...prev,
-        galleryImages: prev.galleryImages.map((img, i) => 
-          i === index ? value : img
-        )
-      }));
-    } else {
-      setFormValues((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
-    }
-  }
+ function handleChange(
+  e: React.ChangeEvent<
+    HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+  >
+) {
+  const { name, value } = e.target;
 
-  const { _id, name, category, description, imageUrl, prices, shortDesc, galleryImages } = formValues;
+  if (name === "price" || name === "discount") {
+    setFormValues((prev) => ({
+      ...prev,
+      prices: {
+        ...prev.prices,
+        [name]: value === "" ? 0 : Number(value),
+      },
+    }));
+  } else if (name === "category") {
+    setFormValues((prev) => ({
+      ...prev,
+      [name]: value as "table" | "mirrors" | "sofas&chairs",
+    }));
+  } else if (name === "isTopProduct") {
+    setFormValues((prev) => ({
+      ...prev,
+      [name]: value === "true",
+    }));
+  } else if (name.startsWith("galleryImage")) {
+    const index = parseInt(name.replace("galleryImage", "")) - 1;
+    setFormValues((prev) => ({
+      ...prev,
+      galleryImages: prev.galleryImages.map((img, i) =>
+        i === index ? value : img
+      ),
+    }));
+  } else {
+    setFormValues((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  }
+}
+
+  const {
+    _id,
+    name,
+    category,
+    description,
+    imageUrl,
+    prices,
+    shortDesc,
+    galleryImages,
+    isTopProduct,
+  } = formValues;
 
   useEffect(() => {
     if (!productBeforeEdit) {
@@ -66,6 +83,7 @@ export default function ProductForm({
         _id: undefined,
         name: "",
         category: "mirrors",
+        isTopProduct: false,
         imageUrl: "",
         galleryImages: ["", "", ""],
         prices: { price: 0, discount: 0 },
@@ -74,11 +92,12 @@ export default function ProductForm({
       });
       return;
     }
-    
+
     setFormValues({
       _id: productBeforeEdit._id,
       name: productBeforeEdit.name,
       category: productBeforeEdit.category,
+      isTopProduct: productBeforeEdit.isTopProduct,
       imageUrl: productBeforeEdit.imageUrl,
       galleryImages: productBeforeEdit.galleryImages || ["", "", ""],
       shortDesc: productBeforeEdit.shortDesc,
@@ -88,16 +107,16 @@ export default function ProductForm({
   }, [productBeforeEdit]);
 
   const handleSubmit = async (formData: FormData) => {
-    formData.set('price', prices.price.toString());
-    formData.set('discount', prices.discount.toString());
-    
+    formData.set("price", prices.price.toString());
+    formData.set("discount", prices.discount.toString());
+    formData.set("isTopProduct", isTopProduct.toString()); 
     galleryImages.forEach((img, index) => {
       formData.set(`galleryImage${index + 1}`, img);
     });
-    
-    formData.delete('prices');
-    formData.delete('galleryImages');
-    
+
+    formData.delete("prices");
+    formData.delete("galleryImages");
+
     await handleNewProductAction(formData);
   };
 
@@ -136,9 +155,12 @@ export default function ProductForm({
             {state?.errors?.name && state.errors.name[0]}
           </p>
         </div>
-
+        
         <div className="w-1/2 flex flex-col gap-0.5">
-          <label htmlFor="category" className="text-sm font-medium text-gray-700">
+          <label
+            htmlFor="category"
+            className="text-sm font-medium text-gray-700"
+          >
             Product category
           </label>
           <select
@@ -151,6 +173,7 @@ export default function ProductForm({
           >
             <option value="mirrors">Mirror</option>
             <option value="table">Table</option>
+            <option value="sofas&chairs">sofas & chairs</option>
           </select>
           <p className="text-center min-h-4 text-sm font-bold text-red-500">
             {state?.errors?.category && state.errors.category[0]}
@@ -158,7 +181,31 @@ export default function ProductForm({
         </div>
       </div>
 
-      {/* رابط الصورة الرئيسية */}
+      <div className="flex w-full justify-between gap-x-4 gap-y-1">
+        <div className="w-full flex flex-col gap-0.5">
+          <label
+            htmlFor="isTopProduct"
+            className="text-sm font-medium text-gray-700"
+          >
+            Is Top Product
+          </label>
+          <select
+            value={isTopProduct.toString()} 
+            name="isTopProduct"
+            id="isTopProduct"
+            className="w-full bg-gray-50 border border-gray-300 px-4 py-2 rounded-md focus:ring-2 focus:ring-Text focus:border-r-Text"
+            onChange={handleChange}
+            required
+          >
+            <option value="false">No</option>
+            <option value="true">Yes</option>
+          </select>          
+          <p className="text-center min-h-4 text-sm font-bold text-red-500">
+            {state?.errors?.isTopProduct && state.errors.isTopProduct[0]}
+          </p>
+        </div>
+      </div>
+
       <div className="flex flex-col gap-0.5">
         <label htmlFor="imageUrl" className="text-sm font-medium text-gray-700">
           Main Product Image URL
@@ -184,7 +231,7 @@ export default function ProductForm({
         <label className="text-sm font-medium text-gray-700">
           Gallery Images (Optional)
         </label>
-        
+
         {/* Gallery Image 1 */}
         <div className="flex flex-col gap-1">
           <label htmlFor="galleryImage1" className="text-xs text-gray-600">
@@ -241,7 +288,7 @@ export default function ProductForm({
         </p>
       </div>
 
-      {/* السعر والخصم */}
+      {/* Price and Discount */}
       <div className="flex justify-between gap-4">
         <div className="w-1/2 flex flex-col gap-0.5">
           <label htmlFor="price" className="text-sm font-medium text-gray-700">
@@ -266,7 +313,10 @@ export default function ProductForm({
         </div>
 
         <div className="w-1/2 flex flex-col gap-0.5">
-          <label htmlFor="discount" className="text-sm font-medium text-gray-700">
+          <label
+            htmlFor="discount"
+            className="text-sm font-medium text-gray-700"
+          >
             Discount percentage
           </label>
           <input
@@ -289,7 +339,10 @@ export default function ProductForm({
       </div>
 
       <div className="flex flex-col gap-0.5">
-        <label htmlFor="shortDesc" className="text-sm font-medium text-gray-700">
+        <label
+          htmlFor="shortDesc"
+          className="text-sm font-medium text-gray-700"
+        >
           Product Short Description
         </label>
         <textarea
@@ -312,9 +365,11 @@ export default function ProductForm({
         </p>
       </div>
 
-      {/* الوصف الكامل */}
       <div className="flex flex-col gap-0.5">
-        <label htmlFor="description" className="text-sm font-medium text-gray-700">
+        <label
+          htmlFor="description"
+          className="text-sm font-medium text-gray-700"
+        >
           Product Description
         </label>
         <textarea
@@ -337,13 +392,7 @@ export default function ProductForm({
         </p>
       </div>
 
-      <input
-        id="_id"
-        name="_id"
-        type="hidden"
-        value={_id || ""} 
-        readOnly
-      />
+      <input id="_id" name="_id" type="hidden" value={_id || ""} readOnly />
 
       <SubmitButton
         isModel={headerContent !== "Add"}
@@ -355,7 +404,7 @@ export default function ProductForm({
         {state?.error && state.error}
       </p>
 
-      {state && 'success' in state && state.success && (
+      {state && "success" in state && state.success && (
         <p className="text-center text-sm font-bold text-green-600">
           Product {headerContent.toLowerCase()}ed successfully!
         </p>

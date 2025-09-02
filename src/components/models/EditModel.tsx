@@ -20,7 +20,7 @@ export default function EditModel({
   );
   return (
     <ModelContainer isModelOpen={isModifyModelOpen}>
-      <div className="relative flex justify-center    w-full p-5 scale-y-85 sm:scale-100">
+      <div className="relative flex justify-center    w-full p-5 scale-y-85 sm:scale-100 md:scale-y-90">
         <div 
         onClick={()=>toggleModifyModel(undefined)}
         className="absolute  top-24 right-9 z-60 sm:top-6 sm:right-6 text-red-500  cursor-pointer">

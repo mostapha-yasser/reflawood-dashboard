@@ -27,16 +27,21 @@ const productSchema = z.object({
   price: z
     .string()
     .refine((val) => !isNaN(Number(val)) && Number(val) > 0, {
-      message: "Price must be a valid number greater than 0"
+      message: "Price must be a valid number greater than 0",
     })
     .transform((val) => Number(val)),
 
   discount: z
     .string()
-    .refine((val) => val === "" || (!isNaN(Number(val)) && Number(val) >= 0 && Number(val) <= 100), {
-      message: "Discount must be a number between 0 and 100"
-    })
-    .transform((val) => val === "" ? 0 : Number(val)),
+    .refine(
+      (val) =>
+        val === "" ||
+        (!isNaN(Number(val)) && Number(val) >= 0 && Number(val) <= 100),
+      {
+        message: "Discount must be a number between 0 and 100",
+      }
+    )
+    .transform((val) => (val === "" ? 0 : Number(val))),
 
   imageUrl: z
     .string()
@@ -48,56 +53,62 @@ const productSchema = z.object({
     .string()
     .optional()
     .refine((val) => !val || z.string().url().safeParse(val).success, {
-      message: "Gallery Image 1 must be a valid URL if provided"
+      message: "Gallery Image 1 must be a valid URL if provided",
     }),
 
   galleryImage2: z
     .string()
     .optional()
     .refine((val) => !val || z.string().url().safeParse(val).success, {
-      message: "Gallery Image 2 must be a valid URL if provided"
+      message: "Gallery Image 2 must be a valid URL if provided",
     }),
 
   galleryImage3: z
     .string()
     .optional()
     .refine((val) => !val || z.string().url().safeParse(val).success, {
-      message: "Gallery Image 3 must be a valid URL if provided"
+      message: "Gallery Image 3 must be a valid URL if provided",
+    }),
+  isTopProduct: z
+    .preprocess((val) => {
+      if (val === "true") return true;
+      if (val === "false") return false;
+      return val;
+    }, z.boolean())
+    .refine((val) => typeof val === "boolean", {
+      message: "Top product selection must be Yes or No",
     }),
 
-  category: z
-    .string()
-    .min(1, { message: "Category is required" })
-    .trim(),
+  category: z.string().min(1, { message: "Category is required" }).trim(),
 });
 
 export async function handleNewProduct(prevState: unknown, formData: FormData) {
   try {
     const rawData = Object.fromEntries(formData);
     const validation = productSchema.safeParse(rawData);
-  
+
     if (validation.success) {
       const rawFormData = validation.data;
-      
-      // Process gallery images - filter out empty strings
+
       const galleryImages = [
         rawFormData.galleryImage1 || "",
         rawFormData.galleryImage2 || "",
-        rawFormData.galleryImage3 || ""
-      ].filter(img => img.trim() !== "");
+        rawFormData.galleryImage3 || "",
+      ].filter((img) => img.trim() !== "");
 
       const productData: ProductInput = {
         name: rawFormData.name,
         description: rawFormData.description,
         prices: {
-          price: rawFormData.price,     
-          discount: rawFormData.discount 
+          price: rawFormData.price,
+          discount: rawFormData.discount,
         },
-        shortDesc: rawFormData.shortDesc, 
+        shortDesc: rawFormData.shortDesc,
         imageUrl: rawFormData.imageUrl,
-        galleryImages: galleryImages, // Add processed gallery images
+        galleryImages: galleryImages,
+        isTopProduct: rawFormData.isTopProduct,
         _id: rawFormData._id,
-        category: rawFormData.category === "mirrors" ? "mirrors" : "table",
+        category: rawFormData.category as "mirrors" | "table" | "sofas&chairs",
       };
 
       let result: AxiosResponse<{ product: Product } | null>;
@@ -120,7 +131,7 @@ export async function handleNewProduct(prevState: unknown, formData: FormData) {
       };
     }
   } catch (error) {
-    console.error('Product operation failed:', error);
+    console.error("Product operation failed:", error);
     return { error: `Failed to process product` };
   }
 }
